@@ -6,24 +6,14 @@ const requireDir = require('require-dir');
 const app = express();
 
 //iniciando o DB
-/** mongoose.connect('mongodb://localgost:27017/nodeapi', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true } ); **/
-const connectDB = async () => {
-    try {
-        await mongoose.connect('mongodb://localgost:27017/nodeapi'), {
-            useNewUrlParser: true,
-            useCreateIndex: true,
-            useUnifiedTopology: true,
-            useFindAndModify: false
-        };
-        console.log("MongoDB Conected")
-    } catch (err) {
-        console.error(err.message);
-        process.exit(1);
-    }
-};
+mongoose.connect('mongodb://localhost:27017/nodeapi', { 
+    useNewUrlParser:true, useUnifiedTopology:true });
+
+
 requireDir('./src/models');
 
 const Product = mongoose.model('Product');
+
 //teste de primeira rota
 app.get('/', (req, res) => {
     Product.create( {
@@ -33,7 +23,7 @@ app.get('/', (req, res) => {
     })
 
 
-    return res.send("Hello world");
+    return res.send("Hello world!!");
 })
 
 app.listen(3001);
